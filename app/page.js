@@ -3,11 +3,22 @@
 import { useState } from 'react';
 
 import './main.css';
+import axios from 'axios';
 
 export default function Home() {
   const [image, setImage] = useState();
 
   const handleClick = async () => {
+    try {
+      const { data } = await axios.get('/api/profile');
+      setImage(data.profile);
+    } catch (err) {
+      if (err.response.status === 401) {
+        if (window.confirm('권한이 없습니다. 인가를 하시겠습니까?')) {
+          window.location.assign('/api/authorize');
+        }
+      }
+    }
   };
 
   const handleChange = (e) => {

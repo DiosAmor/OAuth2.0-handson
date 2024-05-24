@@ -8,7 +8,8 @@ const SESSION_KEY = 'sessionId';
 const sessions = new Map();
 
 export const getSession = async () => {
-  const sessionKey = cookies().get(SESSION_KEY)?.value ?? nanoid();
+  const sessionKey = cookies()
+    .get(SESSION_KEY)?.value ?? nanoid();
   const session = sessions.get(sessionKey);
   if (!session) {
     const value = {
@@ -20,7 +21,8 @@ export const getSession = async () => {
       },
     };
     sessions.set(sessionKey, value);
-    cookies().set(SESSION_KEY, sessionKey, value.cookie);
+    cookies()
+      .set(SESSION_KEY, sessionKey, value.cookie);
   }
 
   return new Proxy(sessions.get(sessionKey), {
