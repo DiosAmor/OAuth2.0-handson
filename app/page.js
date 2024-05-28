@@ -8,6 +8,10 @@ import axios from 'axios';
 export default function Home() {
   const [image, setImage] = useState();
 
+  const handleClickLogin = () => {
+    window.location.assign('/api/authenticate');
+  };
+
   const handleClick = async () => {
     try {
       const { data } = await axios.get('/api/profile');
@@ -29,6 +33,9 @@ export default function Home() {
     <main>
       <h1>사진 인화 서비스</h1>
 
+      <button type="button" onClick={handleClickLogin}>
+        로그인
+      </button>
       <p>
         사진을 선택해 주세요.
         <input onChange={handleChange} accept="image/*" type="file" />
